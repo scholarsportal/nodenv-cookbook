@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [master]
 
+env:
+  CHEF_LICENSE: accept-no-persist
 jobs:
   integration:
     runs-on: ubuntu-latest
@@ -20,7 +22,6 @@ jobs:
           - ubuntu-2004
           - ubuntu-2204
         chef_version:
-          - '15.3'
           - '16'
           - '17'
         suite: [default]
