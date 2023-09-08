@@ -2,7 +2,7 @@ describe file('/etc/profile.d/nodenv.sh') do
   it { should exist }
 end
 
-system_version = '9.5.0'
+system_version = '16.20.2'
 
 describe file("/usr/local/nodenv/versions/#{system_version}/bin/node") do
   it { should exist }
@@ -17,7 +17,7 @@ control 'runuser test user-without-nodenv' do
   end
 end
 
-user_version = '8.9.4'
+user_version = '14.21.3'
 
 describe file("/home/user-with-nodenv/.nodenv/versions/#{user_version}/bin/node") do
   it { should exist }

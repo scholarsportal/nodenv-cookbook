@@ -1,5 +1,7 @@
+unified_mode true
+
 property :git_revision, String, default: 'HEAD'
-property :git_url, String, default: 'git://github.com/nodenv/nodenv.git'
+property :git_url, String, default: 'https://github.com/nodenv/nodenv.git'
 property :group, String
 property :nodenv_root, String, default: lazy { ::File.join ::File.expand_path("~#{owner}"), '.nodenv' }
 property :owner, String, name_property: true

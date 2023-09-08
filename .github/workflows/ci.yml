@@ -24,10 +24,11 @@ jobs:
         os:
           - amazonlinux-2
           - centos-8
-          - debian-9
+          - debian-11
           - fedora-34
           - oraclelinux-8
           - ubuntu-2004
+          - ubuntu-2204
         chef_version:
           - '15.3'
           - '16'
@@ -48,5 +49,4 @@ jobs:
         CHEF_LICENSE: accept-no-persist
         CHEF_VERSION: ${{ matrix.chef_version }}
         KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-        
-  
+
