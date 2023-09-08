@@ -25,12 +25,12 @@ platforms:
     driver:
       image: dokken/centos-8
       pid_one_command: /usr/lib/systemd/systemd
-  - name: debian-9
+  - name: debian-11
     driver:
-      image: dokken/debian-9
+      image: dokken/debian-11
       intermediate_instructions:
         - RUN /usr/bin/apt-get update -qq
-  - name: fedora-34 
+  - name: fedora-34
     driver:
       image: dokken/fedora-34
       pid_one_command: /usr/lib/systemd/systemd
@@ -41,6 +41,12 @@ platforms:
   - name: ubuntu-20.04
     driver:
       image: dokken/ubuntu-20.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update -qq
+  - name: ubuntu-22.04
+    driver:
+      image: dokken/ubuntu-22.04
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update -qq

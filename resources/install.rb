@@ -1,3 +1,5 @@
+unified_mode true
+
 property :version, String, name_property: true
 property :user, String, default: 'root'
 property :group, String, default: ''
