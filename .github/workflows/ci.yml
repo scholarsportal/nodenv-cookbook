@@ -7,16 +7,6 @@ on:
     branches: [master]
 
 jobs:
-  delivery:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run Chef Delivery
-        uses: actionshub/chef-delivery@main
-        env:
-          CHEF_LICENSE: accept-no-persist
-
   integration:
     runs-on: ubuntu-latest
     strategy:
@@ -40,6 +30,10 @@ jobs:
       uses: actions/checkout@v2
     - name: Install Chef
       uses: actionshub/chef-install@main
+    - name: Cookstyle
+      run: cookstyle --display-cop-names --extra-details
+    - name: Rspec
+      run: chef exec rspec
     - name: Test Kitchen
       uses: actionshub/test-kitchen@main
       with:
@@ -49,4 +43,3 @@ jobs:
         CHEF_LICENSE: accept-no-persist
         CHEF_VERSION: ${{ matrix.chef_version }}
         KITCHEN_LOCAL_YAML: kitchen.dokken.yml
-
