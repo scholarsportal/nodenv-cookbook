@@ -33,6 +33,7 @@ property :returns, Array, default: [0]
 property :timeout, Integer
 property :umask, [String, Integer]
 property :live_stream, [true, false], default: false
+property :node_build_mirror_url, String
 
 action :install do
   bash "#{new_resource.command} for user #{new_resource.user}" do
@@ -68,6 +69,10 @@ action_class do
     script_env = { 'NODENV_ROOT' => root_path }
 
     script_env.merge!(new_resource.environment) if new_resource.environment
+
+    if new_resource.node_build_mirror_url
+      script_env['NODE_BUILD_MIRROR_URL'] = new_resource.node_build_mirror_url
+    end
 
     if new_resource.path
       script_env['PATH'] = "#{new_resource.path.join(':')}:#{ENV['PATH']}"

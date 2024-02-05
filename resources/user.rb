@@ -13,13 +13,35 @@ action :install do
 
   git_client 'default'
 
-  git root_path do
-    repository new_resource.git_url
-    revision new_resource.git_revision
+  # git root_path do
+  #   repository new_resource.git_url
+  #   revision new_resource.git_revision
+  #   user new_resource.owner
+  #   group new_resource.group if new_resource.property_is_set?(:group)
+  #   action :checkout
+  #   not_if { ::File.exist? nodenv_bin_file }
+  # end
+
+  directory root_path do
     user new_resource.owner
     group new_resource.group if new_resource.property_is_set?(:group)
-    action :checkout
+    mode '0755'
+  end
+
+  remote_file "v1.4.0.tar.gz" do
+    source "https://nexus.scholarsportal.info/repository/github/nodenv/nodenv/archive/refs/tags/v1.4.0.tar.gz"
+    owner new_resource.owner
+    group new_resource.group if new_resource.property_is_set?(:group)
+    mode '0755'
+    notifies :run, 'execute[extract_nodenv_tar]', :immediately
+    action :create
     not_if { ::File.exist? nodenv_bin_file }
+  end
+
+  execute 'extract_nodenv_tar' do
+    command "gunzip -c v1.4.0.tar.gz | tar -xf - -C #{root_path} "\
+    '--strip-components 1'
+    action :nothing
   end
 
   template '/etc/profile.d/nodenv.sh' do
